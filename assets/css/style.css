@@ -1,0 +1,37 @@
+#visibleTitle {background: orange;
+color: white;
+padding: 25px;
+text-align: center;}
+
+#panelOfCrystals {
+  background: skyblue;
+  padding: 25px;
+  margin: auto;
+}
+
+#instructions {
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.whiteText {
+color: white;
+}
+
+body {
+  background-image: url("../images/skyisland.jpg");
+  /*background-repeat: no-repeat;
+  background-size: cover;*/
+  display: block; margin: auto; /*<----why don't these appear to be doing anything?*/
+
+  margin: 50px;
+}
+
+background-image {
+  opacity: 0.2; /*how do i apply this to the image only; not the entire body*/
+}
+
+.diamond {
+  /*margin: 50px;*/
+}
