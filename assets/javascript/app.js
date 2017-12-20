@@ -42,12 +42,17 @@
   //sets timeOut to be equal to 1 minutes per question
   var t = 1000*60*questions.length;
 
+
   //converts millisecond to stopwatch format e.g. "minutes : seconds"
-  var tConverted = parseInt(t / 1000 / 60) + ":" + (t / 1000 % 60);
+  var tConverted = parseInt(t / 1000 / 60) + "." + (t / 1000 % 60);
+  
+  for (i=100; i < 10 && i > 0; i--){
+    $("#timer").html("Start Over");
+  }
   
   //***********TEST: after time runs out, says "Out of time!"**********
   // setTimeout(function(){ alert("Out of Time!"); }, t);
-   
+  
   //define displayScoreTimedOut function (slightly different from displayScore)
   function displayScoreTimedOut() {
     
@@ -70,13 +75,40 @@
   //after time runs out, go ahead and jump to displaying score function
   setTimeout(function(){ displayScoreTimedOut(); }, t);
     
-  //appends a counter to the page that is updated while the game is running
+  //define founction: appends a counter to the page that is updated while the game is running
   function setTime() {
    $("#timer").append(tConverted + " minutes");};
-//call funtion
+
+  
+  //call funtion 
+  //think i need to wrap this in a "setInterval" to have it auto update to the page. Do I need to do this outside of the higher function for it to work?
+  
 setTime();
 ;
+  //decided to just make a new timer doc write below...
+  document.getElementById('timer').innerHTML =
+  08 + ":" + 00;
+startTimer();
 
+function startTimer() {
+  var presentTime = document.getElementById('timer').innerHTML;
+  var timeArray = presentTime.split(/[:]+/);
+  var m = timeArray[0];
+  var s = checkSecond((timeArray[1] - 1));
+  if(s==59){m=m-1}
+  //if(m<0){alert('timer completed')}
+  
+  document.getElementById('timer').innerHTML =
+    m + ":" + s;
+  setTimeout(startTimer, 1000);
+}
+
+function checkSecond(sec) {
+  if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+  if (sec < 0) {sec = "59"};
+  return sec;
+}
+  
   var questionCounter = 0; //Tracks question number
   var selections = []; //Array containing user choices
   var quiz = $('#quiz'); //Quiz div object
@@ -118,7 +150,7 @@ setTime();
   // Click handler for the 'Start Over' button
   $('#start').on('click', function (e) {
     e.preventDefault();
-
+    
     if(quiz.is(':animated')) {
       return false;
     }
@@ -128,7 +160,7 @@ setTime();
     $('#start').hide();
   });
 
-  // Animates buttons on hover
+  // distinuishes buttons when mouse hovers on top
   $('.button').on('mouseenter', function () {
     $(this).addClass('active');
   });
@@ -136,8 +168,7 @@ setTime();
     $(this).removeClass('active');
   });
 
-  // Creates and returns the div that contains the questions and
-  // the answer selections
+  // Creates and returns the div that contains the questions as well as possible answers
   function createQuestionElement(index) {
     var qElement = $('<div>', {
       id: 'question'
@@ -155,7 +186,7 @@ setTime();
     return qElement;
   }
 
-  // Creates a list of the answer choices as radio inputs
+  // Turns the list of  answer choices into radio buttons
   function createRadios(index) {
     var radioList = $('<ul>');
     var item;
