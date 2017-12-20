@@ -1,4 +1,6 @@
+//all questions, corresponding answer options, and correct answer (index of choices) ---- all contained within objects
 (function() {
+
   var questions = [{
     question: "Which of these films is widely considered as the seed from which Western reception for Japanese animation initially grew?",
     choices: ["Akira", "Castle in the Sky", "My Nieghbor Totoro", "DBZ", "Gundam Wing"],
@@ -37,23 +39,43 @@
   }
 
 ]
-  
   //sets timeOut to be equal to 1 minutes per question
   var t = 1000*60*questions.length;
 
   //converts millisecond to stopwatch format e.g. "minutes : seconds"
   var tConverted = parseInt(t / 1000 / 60) + ":" + (t / 1000 % 60);
   
-  //defines "setTime" function: after time runs out, says "Out of time!"
-  setTimeout(function(){ alert("Out of Time!"); }, t);
+  //***********TEST: after time runs out, says "Out of time!"**********
+  // setTimeout(function(){ alert("Out of Time!"); }, t);
+   
+  //define displayScoreTimedOut function (slightly different from displayScore)
+  function displayScoreTimedOut() {
+    
+    var numCorrect = 0;
+    var numWrong = 0;
+    for (var i = 0; i < selections.length; i++) {
+      if (selections[i] === questions[i].correctAnswer) {
+        numCorrect++;
+      }
+      else {
+        numWrong++;
+      }
+    }
+
+    var score = 'You got ' + numCorrect + ' questions out of ' +
+                 questions.length + ' right!!! (And got ' + numWrong + ' wrong)';
+    alert (score);
+  }
   
+  //after time runs out, go ahead and jump to displaying score function
+  setTimeout(function(){ displayScoreTimedOut(); }, t);
+    
   //appends a counter to the page that is updated while the game is running
   function setTime() {
    $("#timer").append(tConverted + " minutes");};
-  
-  //call "setTime" funtion
+//call funtion
 setTime();
-  ;
+;
 
   var questionCounter = 0; //Tracks question number
   var selections = []; //Array containing user choices
@@ -183,7 +205,7 @@ setTime();
     });
   }
 
-  // Computes score and returns a paragraph element to be displayed
+  // Calculaters score and pushes paragraph element to display
   function displayScore() {
     var score = $('<p>',{id: 'question'});
 
