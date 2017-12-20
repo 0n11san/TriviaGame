@@ -36,7 +36,21 @@
     correctAnswer: 4
   }
 
-];
+]
+  
+  //sets timeOut to be equal to 1 minutes per question
+  var t = 1000*60*questions.length;
+
+  var tConverted = parseInt(t / 1000 / 60) + ":" + (t / 1000 % 60);
+  
+  setTimeout(function(){ alert("Hello"); }, t);
+  
+  //appends a counter to the page that is updated while the game is running
+  function setTime() {
+   $("#timer").append(tConverted + " minutes");};
+//call funtion
+setTime();
+  ;
 
   var questionCounter = 0; //Tracks question number
   var selections = []; //Array containing user choices
