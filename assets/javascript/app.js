@@ -41,14 +41,17 @@
   //sets timeOut to be equal to 1 minutes per question
   var t = 1000*60*questions.length;
 
+  //converts millisecond to stopwatch format e.g. "minutes : seconds"
   var tConverted = parseInt(t / 1000 / 60) + ":" + (t / 1000 % 60);
   
-  setTimeout(function(){ alert("Hello"); }, t);
+  //defines "setTime" function: after time runs out, says "Out of time!"
+  setTimeout(function(){ alert("Out of Time!"); }, t);
   
   //appends a counter to the page that is updated while the game is running
   function setTime() {
    $("#timer").append(tConverted + " minutes");};
-//call funtion
+  
+  //call "setTime" funtion
 setTime();
   ;
 
